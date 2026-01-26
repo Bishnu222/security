@@ -137,9 +137,12 @@ exports.login = async (req, res, next) => {
 
         // 4. Lockout Check
         if (user.lockUntil && user.lockUntil > Date.now()) {
+            const remainingTime = Math.ceil((user.lockUntil - Date.now()) / 60000); // minutes
             return res.status(401).json({
                 success: false,
-                error: 'Account locked. Try again in 15 minutes.'
+                error: `Account is temporarily locked due to multiple failed login attempts. Please try again after ${remainingTime} minute${remainingTime > 1 ? 's' : ''}.`,
+                locked: true,
+                remainingMinutes: remainingTime
             });
         }
 
@@ -148,12 +151,27 @@ exports.login = async (req, res, next) => {
 
         if (!isMatch) {
             user.loginAttempts += 1;
+            const remainingAttempts = 5 - user.loginAttempts;
+
             if (user.loginAttempts >= 5) {
-                user.lockUntil = Date.now() + 15 * 60 * 1000;
+                user.lockUntil = Date.now() + 5 * 60 * 1000; // 5 minutes lockout
                 user.loginAttempts = 0;
+                await user.save();
+                await logActivity(user._id, 'ACCOUNT_LOCKED', 'Account locked due to failed login attempts', req);
+                return res.status(401).json({
+                    success: false,
+                    error: 'Account is temporarily locked due to multiple failed login attempts. Please try again after 5 minutes.',
+                    locked: true,
+                    remainingMinutes: 5
+                });
             }
+
             await user.save();
-            return res.status(401).json({ success: false, error: 'Invalid credentials' });
+            return res.status(401).json({
+                success: false,
+                error: `Invalid credentials. ${remainingAttempts} attempt${remainingAttempts > 1 ? 's' : ''} remaining before account lockout.`,
+                remainingAttempts
+            });
         }
 
         // Reset attempts

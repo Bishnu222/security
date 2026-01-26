@@ -69,7 +69,38 @@ const Login = () => {
                 navigate('/dashboard');
             }
         } catch (err) {
-            toast.error(err.response?.data?.error || 'Login failed');
+            const errorData = err.response?.data;
+
+            // Handle account lockout
+            if (errorData?.locked) {
+                toast.error(errorData.error, {
+                    duration: 6000,
+                    icon: '🔒',
+                    style: {
+                        background: '#fee2e2',
+                        color: '#991b1b',
+                        fontWeight: '500'
+                    }
+                });
+            }
+            // Handle remaining attempts warning
+            else if (errorData?.remainingAttempts !== undefined) {
+                const attempts = errorData.remainingAttempts;
+                toast.error(errorData.error, {
+                    duration: 5000,
+                    icon: attempts <= 2 ? '⚠️' : '❌',
+                    style: attempts <= 2 ? {
+                        background: '#fef3c7',
+                        color: '#92400e',
+                        fontWeight: '500'
+                    } : undefined
+                });
+            }
+            // Generic error
+            else {
+                toast.error(errorData?.error || 'Login failed');
+            }
+
             fetchCaptcha(); // Refresh captcha on failure
             setCaptcha('');
         }
