@@ -4,9 +4,7 @@ const Product = require('../models/Product');
 const Order = require('../models/Order');
 const logActivity = require('../utils/logger');
 
-// @desc    Create Payment Intent
-// @route   POST /api/payment/create-intent
-// @access  Private
+
 exports.createPaymentIntent = async (req, res, next) => {
     try {
         const { items } = req.body;
