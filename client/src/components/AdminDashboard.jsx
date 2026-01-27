@@ -150,7 +150,7 @@ const AdminDashboard = () => {
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                                         {product.image && (
                                             <img
-                                                src={`https://localhost:5000/uploads/${product.image}`}
+                                                src={`/uploads/${product.image}`}
                                                 alt={product.name}
                                                 style={{ width: '60px', height: '60px', objectFit: 'cover', borderRadius: '0.25rem', border: '1px solid #cbd5e1' }}
                                             />
@@ -178,7 +178,7 @@ const AdminDashboard = () => {
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                                         {product.image && (
                                             <img
-                                                src={`https://localhost:5000/uploads/${product.image}`}
+                                                src={`/uploads/${product.image}`}
                                                 alt={product.name}
                                                 style={{ width: '60px', height: '60px', objectFit: 'cover', borderRadius: '0.25rem', border: '1px solid #86efac' }}
                                             />

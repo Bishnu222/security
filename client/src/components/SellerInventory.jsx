@@ -33,7 +33,7 @@ const SellerInventory = () => {
                     {myProducts.map(product => (
                         <div key={product._id} style={{ display: 'flex', gap: '1rem', padding: '1rem', background: '#f8fafc', borderRadius: '0.5rem', border: '1px solid #e2e8f0' }}>
                             {product.image && (
-                                <img src={`https://localhost:5000/uploads/${product.image}`} alt={product.name} style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '0.25rem' }} />
+                                <img src={`/uploads/${product.image}`} alt={product.name} style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '0.25rem' }} />
                             )}
                             <div style={{ flex: 1 }}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.25rem' }}>
