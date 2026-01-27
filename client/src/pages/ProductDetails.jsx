@@ -36,7 +36,7 @@ const ProductDetails = () => {
                 <div style={{ background: '#f8fafc', borderRadius: '1rem', height: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', border: '1px solid #e2e8f0' }}>
                     {product.image && product.image !== 'no-photo.jpg' ? (
                         <img
-                            src={`http://localhost:5000/uploads/${product.image}`}
+                            src={`https://localhost:5000/uploads/${product.image}`}
                             alt={product.name}
                             style={{ width: '100%', height: '100%', objectFit: 'contain' }}
                         />

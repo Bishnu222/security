@@ -1,4 +1,7 @@
 const express = require('express');
+const https = require('https');
+const fs = require('fs');
+const path = require('path');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 const helmet = require('helmet');
@@ -83,7 +86,7 @@ app.use('/api', limiter);
 
 // CORS
 const corsOptions = {
-    origin: process.env.CLIENT_URL || 'http://localhost:5173',
+    origin: process.env.CLIENT_URL || 'https://localhost:5173',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-XSRF-TOKEN'],
     credentials: true,
@@ -127,8 +130,18 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 5000;
 
-const server = app.listen(PORT, () => {
-    console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
+// Read SSL certificates
+const sslOptions = {
+    key: fs.readFileSync(path.join(__dirname, 'ssl', 'key.pem')),
+    cert: fs.readFileSync(path.join(__dirname, 'ssl', 'cert.pem'))
+};
+
+// Create HTTPS server
+const server = https.createServer(sslOptions, app);
+
+server.listen(PORT, () => {
+    console.log(`🔒 HTTPS Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
+    console.log(`🌐 Server URL: https://localhost:${PORT}`);
 });
 
 // Handle unhandled promise rejections
