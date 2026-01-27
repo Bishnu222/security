@@ -76,8 +76,8 @@ app.use(hpp());
 
 // Rate Limiting
 const limiter = rateLimit({
-    windowMs: 10 * 60 * 1000, // 10 mins
-    max: 500 // 500 requests per 10 mins
+    windowMs: 10 * 60 * 1000, 
+    max: 500 
 });
 app.use('/api', limiter);
 
@@ -89,7 +89,7 @@ const allowedOrigins = [
 
 const corsOptions = {
     origin: function (origin, callback) {
-        // allow requests with no origin (like mobile apps or curl requests)
+       
         if (!origin) return callback(null, true);
         if (allowedOrigins.indexOf(origin) !== -1) {
             callback(null, true);
