@@ -6,8 +6,7 @@ const svgCaptcha = require('svg-captcha');
 const crypto = require('crypto');
 const logActivity = require('../utils/logger');
 
-// Generate JWT
-// Generate JWT
+
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
         expiresIn: '1h' // Short expiration
