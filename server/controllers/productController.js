@@ -1,9 +1,7 @@
 const Product = require('../models/Product');
 const path = require('path');
 
-// @desc    Get all products
-// @route   GET /api/products
-// @access  Public
+
 exports.getProducts = async (req, res, next) => {
     try {
         let query;
