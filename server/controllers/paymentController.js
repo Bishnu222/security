@@ -8,9 +8,7 @@ const logActivity = require('../utils/logger');
 exports.createPaymentIntent = async (req, res, next) => {
     try {
         const { items } = req.body;
-        // Items should be [{ id, price }] but secure way is to fetch price from DB
-
-        // Calculate amount from DB to prevent client manipulation
+   
         let totalAmount = 0;
         const products_for_order = [];
 
