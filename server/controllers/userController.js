@@ -3,9 +3,7 @@ const ActivityLog = require('../models/ActivityLog');
 const { validationResult } = require('express-validator');
 const logActivity = require('../utils/logger');
 
-// @desc    Update user details
-// @route   PUT /api/users/updatedetails
-// @access  Private
+
 exports.updateDetails = async (req, res, next) => {
     try {
         // Express Validator Results
