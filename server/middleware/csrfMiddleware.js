@@ -1,7 +1,7 @@
 const crypto = require('crypto');
 
 const csrfProtection = (req, res, next) => {
-    // excluded routes (webhooks, etc.)
+    
     const excludedRoutes = ['/api/payment/webhook'];
     if (excludedRoutes.includes(req.path)) return next();
 
