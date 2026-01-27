@@ -26,6 +26,18 @@ export default defineConfig({
     host: '127.0.0.1', // Use IPv4 localhost for better compatibility
     port: 5173,
     strictPort: true,
-    https: httpsConfig
+    https: httpsConfig,
+    proxy: {
+      '/api': {
+        target: 'https://127.0.0.1:5000',
+        changeOrigin: true,
+        secure: false, // This ignores SSL errors for the proxy
+      },
+      '/uploads': {
+        target: 'https://127.0.0.1:5000',
+        changeOrigin: true,
+        secure: false,
+      }
+    }
   }
 })

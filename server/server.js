@@ -63,7 +63,7 @@ app.use(helmet({
             frameSrc: ["'self'", "https://js.stripe.com"],
             imgSrc: ["'self'", "data:", "https:", "http:"],
             styleSrc: ["'self'", "'unsafe-inline'"],
-            connectSrc: ["'self'", "https://api.stripe.com"]
+            connectSrc: ["'self'", "https://api.stripe.com", "https://localhost:5000", "https://127.0.0.1:5000"]
         }
     }
 }));
@@ -85,8 +85,21 @@ const limiter = rateLimit({
 app.use('/api', limiter);
 
 // CORS
+const allowedOrigins = [
+    process.env.CLIENT_URL || 'https://localhost:5173',
+    process.env.CLIENT_URL_ALT || 'https://127.0.0.1:5173'
+];
+
 const corsOptions = {
-    origin: process.env.CLIENT_URL || 'https://localhost:5173',
+    origin: function (origin, callback) {
+        // allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-XSRF-TOKEN'],
     credentials: true,
