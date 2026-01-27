@@ -4,9 +4,7 @@ const Stripe = require('stripe');
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 const logActivity = require('../utils/logger');
 
-// @desc    Get my orders
-// @route   GET /api/orders/myorders
-// @access  Private
+
 exports.getMyOrders = async (req, res, next) => {
     try {
         const orders = await Order.find({ buyer: req.user.id })
