@@ -68,10 +68,7 @@ app.use(helmet({
     }
 }));
 
-// Prevent XSS attacks (Moved after body parser)
-// app.use(xss());
 
-// Sanitize data
 app.use(mongoSanitize());
 
 // Prevent Parameter Pollution
