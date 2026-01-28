@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: '/api', // Use relative path for proxy
+    baseURL: '/api', 
     withCredentials: true,
     headers: {
         'Content-Type': 'application/json',
