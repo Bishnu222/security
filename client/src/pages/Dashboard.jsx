@@ -35,7 +35,7 @@ const Dashboard = () => {
     const [name, setName] = useState(user?.name || '');
     const [email, setEmail] = useState(user?.email || '');
 
-    // Password State
+    
     const [passwordData, setPasswordData] = useState({
         currentPassword: '',
         newPassword: '',
