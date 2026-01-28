@@ -15,7 +15,7 @@ const getCookie = (name) => {
     if (parts.length === 2) return parts.pop().split(';').shift();
 };
 
-// Request interceptor to add CSRF token for non-GET requests
+
 api.interceptors.request.use((config) => {
     if (config.method !== 'get') {
         const token = getCookie('XSRF-TOKEN-V2');
