@@ -16,7 +16,7 @@ import toast from 'react-hot-toast';
 const Dashboard = () => {
     const { user, updateProfile } = useAuth();
     const location = useLocation();
-    // Auto-select admin tab if user is admin
+    
     const [activeTab, setActiveTab] = useState(user?.role === 'admin' ? 'admin' : 'profile');
 
     useEffect(() => {
