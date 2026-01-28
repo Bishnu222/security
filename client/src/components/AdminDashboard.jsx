@@ -50,7 +50,7 @@ const AdminDashboard = () => {
             await api.put(`/products/${id}/approve`);
             setMessage('Product approved!');
             fetchUnapprovedProducts(); 
-            fetchApprovedProducts(); // Refresh history
+            fetchApprovedProducts(); 
             setTimeout(() => setMessage(''), 3000);
         } catch (err) {
             console.error(err);
