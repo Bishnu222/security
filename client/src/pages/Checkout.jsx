@@ -29,7 +29,7 @@ const Checkout = () => {
         const t = items.reduce((acc, item) => acc + item.price, 0);
         setTotal(t);
 
-        // Create Payment Intent
+        
         api.post('/payment/create-intent', { items: items.map(i => ({ id: i._id })) })
             .then(res => {
                 setClientSecret(res.data.clientSecret);
