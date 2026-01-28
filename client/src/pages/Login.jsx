@@ -27,7 +27,7 @@ const Login = () => {
 
     const fetchCaptcha = async () => {
         try {
-            // Add timestamp to prevent caching
+            
             const { data } = await api.get(`/auth/captcha?t=${new Date().getTime()}`, {
                 responseType: 'text'
             });
