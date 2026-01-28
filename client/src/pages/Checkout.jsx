@@ -8,7 +8,7 @@ import { CreditCard, ShieldCheck } from 'lucide-react';
 
 
 const stripePromise = loadStripe('pk_test_51O7...REPLACE_WITH_REAL_KEY_OR_MOCK');
-// Ideally get this from ENV
+
 
 const Checkout = () => {
     const location = useLocation();
