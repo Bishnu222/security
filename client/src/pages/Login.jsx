@@ -14,7 +14,6 @@ const Login = () => {
     const [captchaSvg, setCaptchaSvg] = useState('');
     
 
-    // MFA State
     const [mfaRequired, setMfaRequired] = useState(false);
     const [mfaCode, setMfaCode] = useState('');
     const [tempToken, setTempToken] = useState('');
