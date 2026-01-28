@@ -82,7 +82,7 @@ const Login = () => {
                     }
                 });
             }
-            // Handle remaining attempts warning
+            
             else if (errorData?.remainingAttempts !== undefined) {
                 const attempts = errorData.remainingAttempts;
                 toast.error(errorData.error, {
@@ -95,12 +95,12 @@ const Login = () => {
                     } : undefined
                 });
             }
-            // Generic error
+            
             else {
                 toast.error(errorData?.error || 'Login failed');
             }
 
-            fetchCaptcha(); // Refresh captcha on failure
+            fetchCaptcha(); 
             setCaptcha('');
         }
     };
