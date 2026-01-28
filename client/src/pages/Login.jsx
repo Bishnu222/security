@@ -62,7 +62,7 @@ const Login = () => {
                 setTempToken(data.tempToken);
                 toast.success('Please enter 2FA Code');
             } else {
-                // Success (cookie set)
+                
                 toast.success('Welcome back!');
                 await checkUserLoggedIn(); // Update global auth state
                 navigate('/dashboard');
