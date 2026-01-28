@@ -12,7 +12,7 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [captcha, setCaptcha] = useState('');
     const [captchaSvg, setCaptchaSvg] = useState('');
-    // const [error, setError] = useState(''); // Removed local error state
+    
 
     // MFA State
     const [mfaRequired, setMfaRequired] = useState(false);
