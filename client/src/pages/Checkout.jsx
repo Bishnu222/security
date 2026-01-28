@@ -25,7 +25,7 @@ const Checkout = () => {
             return;
         }
 
-        // Calculate initial total
+        
         const t = items.reduce((acc, item) => acc + item.price, 0);
         setTotal(t);
 
