@@ -8,7 +8,7 @@ const api = axios.create({
     },
 });
 
-// Helper to get cookie value
+
 const getCookie = (name) => {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
