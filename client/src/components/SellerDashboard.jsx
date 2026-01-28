@@ -27,7 +27,7 @@ const SellerDashboard = () => {
     const handleChange = (e) => {
         const { name, value } = e.target;
         if (name === 'category') {
-            // Update category and reset size to first available for that category
+            
             setNewItem({
                 ...newItem,
                 category: value,
