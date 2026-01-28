@@ -41,7 +41,7 @@ const Login = () => {
         e.preventDefault();
 
         if (mfaRequired) {
-            // Step 2: Verify MFA
+           
             try {
                 const { data } = await api.post('/auth/login/verify-mfa', { tempToken, code: mfaCode });
                 toast.success('Login Successful');
