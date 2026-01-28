@@ -18,7 +18,7 @@ const Login = () => {
     const [mfaCode, setMfaCode] = useState('');
     const [tempToken, setTempToken] = useState('');
 
-    const { checkUserLoggedIn } = useAuth(); // Get state updater
+    const { checkUserLoggedIn } = useAuth(); 
     const navigate = useNavigate();
 
     useEffect(() => {
