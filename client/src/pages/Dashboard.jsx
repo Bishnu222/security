@@ -48,7 +48,7 @@ const Dashboard = () => {
     const [isSimulation, setIsSimulation] = useState(true);
 
     useEffect(() => {
-        // Simple check to see if we are in simulation mode
+        
         api.post('/payment/create-intent', { items: [] })
             .then(res => setIsSimulation(res.data.isSimulation))
             .catch(() => { });
