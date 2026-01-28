@@ -70,7 +70,7 @@ const Login = () => {
         } catch (err) {
             const errorData = err.response?.data;
 
-            // Handle account lockout
+            
             if (errorData?.locked) {
                 toast.error(errorData.error, {
                     duration: 6000,
