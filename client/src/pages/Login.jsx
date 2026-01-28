@@ -45,7 +45,7 @@ const Login = () => {
             try {
                 const { data } = await api.post('/auth/login/verify-mfa', { tempToken, code: mfaCode });
                 toast.success('Login Successful');
-                await checkUserLoggedIn(); // Update global auth state
+                await checkUserLoggedIn(); 
                 navigate('/dashboard');
             } catch (err) {
                 toast.error(err.response?.data?.error || 'Invalid Code');
