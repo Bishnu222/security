@@ -64,7 +64,7 @@ const Login = () => {
             } else {
                 
                 toast.success('Welcome back!');
-                await checkUserLoggedIn(); // Update global auth state
+                await checkUserLoggedIn(); 
                 navigate('/dashboard');
             }
         } catch (err) {
