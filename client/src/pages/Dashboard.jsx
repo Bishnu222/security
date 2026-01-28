@@ -8,6 +8,7 @@ import SellerOrders from '../components/SellerOrders';
 import AdminDashboard from '../components/AdminDashboard';
 import ActivityLogs from '../components/ActivityLogs';
 import OrderList from '../components/OrderList';
+import WalletCard from '../components/WalletCard';
 import { motion } from 'framer-motion';
 import api from '../api/axios';
 
@@ -16,14 +17,14 @@ import toast from 'react-hot-toast';
 const Dashboard = () => {
     const { user, updateProfile } = useAuth();
     const location = useLocation();
-    
+
     const [activeTab, setActiveTab] = useState(user?.role === 'admin' ? 'admin' : 'profile');
 
     useEffect(() => {
         const params = new URLSearchParams(location.search);
         const tab = params.get('tab');
         if (tab) {
-            
+
             if (tab === 'orders' && user?.role === 'seller') {
                 setActiveTab('sales');
             } else {
@@ -35,7 +36,7 @@ const Dashboard = () => {
     const [name, setName] = useState(user?.name || '');
     const [email, setEmail] = useState(user?.email || '');
 
-    
+
     const [passwordData, setPasswordData] = useState({
         currentPassword: '',
         newPassword: '',
@@ -48,7 +49,7 @@ const Dashboard = () => {
     const [isSimulation, setIsSimulation] = useState(true);
 
     useEffect(() => {
-        
+
         api.post('/payment/create-intent', { items: [] })
             .then(res => setIsSimulation(res.data.isSimulation))
             .catch(() => { });
@@ -87,7 +88,7 @@ const Dashboard = () => {
             toast.success('2FA Enabled Successfully!');
             setMfaData({ secret: '', qrCode: '' });
             setMfaCode('');
-        
+
             window.location.reload();
         } catch (err) {
             toast.error('Invalid Code');
@@ -120,6 +121,23 @@ const Dashboard = () => {
             setPasswordData({ currentPassword: '', newPassword: '', confirmPassword: '' });
         } catch (error) {
             toast.error(error.response?.data?.error || 'Failed to update password');
+        }
+    };
+
+    const handleTopUp = async () => {
+        const amountStr = prompt("Enter amount to top up (USD):", "50");
+        const amount = parseFloat(amountStr);
+        if (isNaN(amount) || amount <= 0) {
+            toast.error("Invalid amount");
+            return;
+        }
+
+        try {
+            const { data } = await api.post('/payment/top-up', { amount });
+            toast.success(`Successfully topped up $${amount}!`);
+            updateProfile(user.name, user.email); // Refresh user data to get new balance
+        } catch (err) {
+            toast.error("Top up failed");
         }
     };
 
@@ -326,21 +344,33 @@ const Dashboard = () => {
                                     </div>
                                 </div>
 
-                                <div style={{ marginBottom: '2rem', padding: '1.5rem', background: '#f8fafc', borderRadius: '0.5rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                                    <div style={{ background: 'white', padding: '1.25rem', borderRadius: '0.75rem', flex: 1, border: '1px solid #e2e8f0', boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
-                                        <p style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.5rem' }}>Purchasing Balance</p>
-                                        <p style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#1e293b' }}>$0.00</p>
-                                    </div>
+                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem', marginBottom: '2.5rem' }}>
+                                    <WalletCard
+                                        balance={user?.walletBalance || 0}
+                                        name={user?.name}
+                                        onTopUp={handleTopUp}
+                                    />
 
                                     {(user.role === 'seller' || user.role === 'admin') && (
-                                        <div style={{ background: 'linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)', padding: '1.25rem', borderRadius: '0.75rem', flex: 1, color: 'white', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}>
-                                            <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.8)', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.5rem' }}>Total Sales Earnings</p>
-                                            <p style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>${sellerEarnings.toFixed(2)}</p>
+                                        <div style={{
+                                            background: 'linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)',
+                                            padding: '1.5rem',
+                                            borderRadius: '1.25rem',
+                                            color: 'white',
+                                            boxShadow: '0 10px 25px -5px rgba(79, 70, 229, 0.4)',
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            justifyContent: 'center',
+                                            minHeight: '200px'
+                                        }}>
+                                            <p style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.8)', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.5rem' }}>Total Sales Earnings</p>
+                                            <h2 style={{ fontSize: '2.5rem', fontWeight: '800' }}>${sellerEarnings.toFixed(2)}</h2>
+                                            <p style={{ fontSize: '0.75rem', marginTop: '1rem', opacity: 0.8 }}>Automatically settled to your bank account weekly.</p>
                                         </div>
                                     )}
                                 </div>
 
-                                <h3 style={{ fontSize: '1.1rem', marginBottom: '1rem' }}>Transaction History</h3>
+                                <h3 style={{ fontSize: '1.25rem', marginBottom: '1.25rem', fontWeight: '700' }}>Transaction History</h3>
                                 <OrderList showHeader={false} />
                             </div>
                         )}

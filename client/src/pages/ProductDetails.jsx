@@ -52,7 +52,7 @@ const ProductDetails = () => {
                     </div>
 
                     <h1 style={{ fontSize: '2.5rem', fontWeight: '700', marginBottom: '1rem', lineHeight: 1.1 }}>{product.name}</h1>
-                    <p style={{ fontSize: '1.5rem', color: '#4f46e5', fontWeight: '600', marginBottom: '2rem' }}>${product.price}</p>
+                    <p style={{ fontSize: '1.5rem', color: '#4f46e5', fontWeight: '600', marginBottom: '2rem' }}>Rs. {product.price}</p>
 
                     <div style={{ marginBottom: '2rem' }}>
                         <h3 style={{ fontSize: '1rem', fontWeight: '600', marginBottom: '0.5rem' }}>Description</h3>

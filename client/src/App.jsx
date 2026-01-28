@@ -9,6 +9,8 @@ import ProductDetails from './pages/ProductDetails';
 import PrivateRoute from './components/PrivateRoute';
 import Checkout from './pages/Checkout';
 import { AuthProvider } from './context/AuthContext';
+import EsewaSuccess from './pages/EsewaSuccess';
+import EsewaFailure from './pages/EsewaFailure';
 
 import { Toaster } from 'react-hot-toast';
 
@@ -39,6 +41,22 @@ function App() {
                 element={
                   <PrivateRoute>
                     <Dashboard />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/payment-success"
+                element={
+                  <PrivateRoute>
+                    <EsewaSuccess />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/payment-failure"
+                element={
+                  <PrivateRoute>
+                    <EsewaFailure />
                   </PrivateRoute>
                 }
               />

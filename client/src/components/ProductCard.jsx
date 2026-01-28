@@ -53,7 +53,7 @@ const ProductCard = ({ product }) => {
             <div style={{ padding: '1rem' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '0.5rem' }}>
                     <h3 style={{ fontSize: '1rem', fontWeight: '600', margin: 0 }}>{product.name}</h3>
-                    <span style={{ fontWeight: '700', color: '#4f46e5' }}>${product.price}</span>
+                    <span style={{ fontWeight: '700', color: '#4f46e5' }}>Rs. {product.price}</span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: '#64748b' }}>
                     <span>{product.category}</span>

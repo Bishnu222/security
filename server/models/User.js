@@ -49,6 +49,13 @@ const userSchema = new mongoose.Schema({
     }],
     lastLogin: {
         type: Date
+    },
+    walletBalance: {
+        type: Number,
+        default: 0
+    },
+    stripeCustomerId: {
+        type: String
     }
 }, {
     timestamps: true

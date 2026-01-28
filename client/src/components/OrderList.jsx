@@ -84,6 +84,18 @@ const OrderList = ({ showHeader = true }) => {
                                         Refund: {order.refundStatus}
                                     </span>
                                 )}
+                                {order.paymentIntentId?.startsWith('wallet_') && (
+                                    <span style={{
+                                        background: '#fff7ed',
+                                        color: '#ea580c',
+                                        padding: '0.25rem 0.5rem',
+                                        borderRadius: '99px',
+                                        fontSize: '0.75rem',
+                                        border: '1px solid #ffedd5'
+                                    }}>
+                                        Wallet Payment
+                                    </span>
+                                )}
                             </div>
                             <span style={{ color: '#64748b', fontSize: '0.875rem' }}>{new Date(order.createdAt).toLocaleDateString()}</span>
                         </div>
@@ -91,13 +103,13 @@ const OrderList = ({ showHeader = true }) => {
                         <div style={{ marginBottom: '1rem' }}>
                             {order.items.map((item, idx) => (
                                 <p key={idx} style={{ fontSize: '0.9rem', color: '#334155' }}>
-                                    {item.product?.name || 'Unknown Item'} - ${item.price}
+                                    {item.product?.name || 'Unknown Item'} - Rs. {item.price}
                                 </p>
                             ))}
                         </div>
 
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid #f1f5f9', paddingTop: '1rem' }}>
-                            <span style={{ fontWeight: 'bold' }}>Total: ${order.totalAmount}</span>
+                            <span style={{ fontWeight: 'bold' }}>Total: Rs. {order.totalAmount}</span>
                             <div style={{ display: 'flex', gap: '0.5rem' }}>
                                 <button onClick={() => downloadInvoice(order._id)} className="btn btn-outline" style={{ fontSize: '0.875rem', padding: '0.25rem 0.75rem' }}>
                                     <Download size={14} style={{ marginRight: '0.5rem' }} /> Invoice
