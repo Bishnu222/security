@@ -13,7 +13,7 @@ const stripePromise = loadStripe('pk_test_51O7...REPLACE_WITH_REAL_KEY_OR_MOCK')
 const Checkout = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const { items } = location.state || {}; // items: [{id, name, price}]
+    const { items } = location.state || {}; 
 
     const [clientSecret, setClientSecret] = useState('');
     const [isSimulation, setIsSimulation] = useState(false);
