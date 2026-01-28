@@ -87,7 +87,7 @@ const Dashboard = () => {
             toast.success('2FA Enabled Successfully!');
             setMfaData({ secret: '', qrCode: '' });
             setMfaCode('');
-            // Refetch user to update UI? Ideally force reload or update context
+        
             window.location.reload();
         } catch (err) {
             toast.error('Invalid Code');
