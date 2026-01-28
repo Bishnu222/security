@@ -6,7 +6,7 @@ import CheckoutForm from '../components/CheckoutForm';
 import api from '../api/axios';
 import { CreditCard, ShieldCheck } from 'lucide-react';
 
-// Replace with your text publishable key
+
 const stripePromise = loadStripe('pk_test_51O7...REPLACE_WITH_REAL_KEY_OR_MOCK');
 // Ideally get this from ENV
 
