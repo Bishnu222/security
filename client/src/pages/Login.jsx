@@ -53,7 +53,7 @@ const Login = () => {
             return;
         }
 
-        // Step 1: Initial Login
+        
         try {
             const { data } = await api.post('/auth/login', { email, password, captcha });
 
