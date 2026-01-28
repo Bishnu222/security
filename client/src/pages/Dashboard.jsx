@@ -23,7 +23,7 @@ const Dashboard = () => {
         const params = new URLSearchParams(location.search);
         const tab = params.get('tab');
         if (tab) {
-            // Map 'orders' to 'sales' if seller, or keep as 'orders' for buyer
+            
             if (tab === 'orders' && user?.role === 'seller') {
                 setActiveTab('sales');
             } else {
